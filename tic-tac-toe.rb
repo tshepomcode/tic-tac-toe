@@ -18,6 +18,7 @@ def display_board(board)
   puts "#{board[0]}|#{board[1]}|#{board[2]}"
   puts "#{board[3]}|#{board[4]}|#{board[5]}"
   puts "#{board[6]}|#{board[7]}|#{board[8]}"
+  puts
 end
 
 def update_board(board, position, value)
@@ -59,11 +60,6 @@ while play == "Y" do
   # puts "7|8|9"
 
   display_board(board_02)
-
-  # puts "#{board_02[0]}|#{board_02[1]}|#{board_02[2]}"
-  # puts "#{board_02[3]}|#{board_02[4]}|#{board_02[5]}"
-  # puts "#{board_02[6]}|#{board_02[7]}|#{board_02[8]}"
-
   puts
   puts "Lets begin!"
   puts
