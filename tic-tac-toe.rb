@@ -105,6 +105,25 @@ while play == "Y" do
   # # display position
   display_board(board_02)
 
+  puts "Player one enter position"
+  position_01 = gets.chomp
+
+  p position_01
+  board_02[position_01.to_i - 1] = player_one
+  # # update array
+  puts "Board 2 : #{board_02}"
+  # # display position
+  display_board(board_02)
+
+  puts
+  puts "Player two enter position"
+  position_02 = gets.chomp
+  p position_02
+  board_02[position_02.to_i - 1] = player_two
+  puts "Board 2 : #{board_02}"
+  # # display position
+  display_board(board_02)
+
   # puts "Player one enter position"
   # position_01 = gets.chomp
   # # update array
