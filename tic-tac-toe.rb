@@ -48,10 +48,7 @@ while play == "Y" do
   puts "Player one you selected #{player_one}"
   puts "Player two you get #{player_two}"
 
-  while count_play < board_length do
-    count_play += 1
-    print "Count play : #{count_play} "
-  end
+  
   
   puts
   puts "Select position (1,2,3 etc.) of knot or cross based on the grid numbers below:"
@@ -64,65 +61,94 @@ while play == "Y" do
   puts "Lets begin!"
   puts
 
-  # game loop starts here
-  puts "Player one enter position"
-  position_01 = gets.chomp
+  while board_02.any?(Integer) do
+    any_integers = board_02.any?(Integer)
+    puts "Any integers? #{any_integers}"
+    count_play += 1
+    print "Count play : #{count_play} "
+    # game loop starts here
+    puts "Player one enter position"
+    position_01 = gets.chomp
 
-  p position_01
+    p position_01
+    
+    # # update array
+    update_board(board_02, position_01, player_one)
+    # board_02[position_01.to_i - 1] = player_one
+    puts "Board 2 : #{board_02}"
+    # # display position
+    display_board(board_02)
+
+    puts
+    puts "Player two enter position"
+    position_02 = gets.chomp
+    p position_02
+    board_02[position_02.to_i - 1] = player_two
+    puts "Board 2 : #{board_02}"
+    # # display position
+    display_board(board_02)
+
+  end
+
+  # # game loop starts here
+  # puts "Player one enter position"
+  # position_01 = gets.chomp
+
+  # p position_01
   
-  # # update array
-  update_board(board_02, position_01, player_one)
+  # # # update array
+  # update_board(board_02, position_01, player_one)
+  # # board_02[position_01.to_i - 1] = player_one
+  # puts "Board 2 : #{board_02}"
+  # # # display position
+  # display_board(board_02)
+
+  # puts
+  # puts "Player two enter position"
+  # position_02 = gets.chomp
+  # p position_02
+  # board_02[position_02.to_i - 1] = player_two
+  # puts "Board 2 : #{board_02}"
+  # # # display position
+  # display_board(board_02)
+
+  # puts "Player one enter position"
+  # position_01 = gets.chomp
+
+  # p position_01
   # board_02[position_01.to_i - 1] = player_one
-  puts "Board 2 : #{board_02}"
-  # # display position
-  display_board(board_02)
+  # # # update array
+  # puts "Board 2 : #{board_02}"
+  # # # display position
+  # display_board(board_02)
 
-  puts
-  puts "Player two enter position"
-  position_02 = gets.chomp
-  p position_02
-  board_02[position_02.to_i - 1] = player_two
-  puts "Board 2 : #{board_02}"
-  # # display position
-  display_board(board_02)
+  # puts
+  # puts "Player two enter position"
+  # position_02 = gets.chomp
+  # p position_02
+  # board_02[position_02.to_i - 1] = player_two
+  # puts "Board 2 : #{board_02}"
+  # # # display position
+  # display_board(board_02)
 
-  puts "Player one enter position"
-  position_01 = gets.chomp
+  # puts "Player one enter position"
+  # position_01 = gets.chomp
 
-  p position_01
-  board_02[position_01.to_i - 1] = player_one
-  # # update array
-  puts "Board 2 : #{board_02}"
-  # # display position
-  display_board(board_02)
+  # p position_01
+  # board_02[position_01.to_i - 1] = player_one
+  # # # update array
+  # puts "Board 2 : #{board_02}"
+  # # # display position
+  # display_board(board_02)
 
-  puts
-  puts "Player two enter position"
-  position_02 = gets.chomp
-  p position_02
-  board_02[position_02.to_i - 1] = player_two
-  puts "Board 2 : #{board_02}"
-  # # display position
-  display_board(board_02)
-
-  puts "Player one enter position"
-  position_01 = gets.chomp
-
-  p position_01
-  board_02[position_01.to_i - 1] = player_one
-  # # update array
-  puts "Board 2 : #{board_02}"
-  # # display position
-  display_board(board_02)
-
-  puts
-  puts "Player two enter position"
-  position_02 = gets.chomp
-  p position_02
-  board_02[position_02.to_i - 1] = player_two
-  puts "Board 2 : #{board_02}"
-  # # display position
-  display_board(board_02)
+  # puts
+  # puts "Player two enter position"
+  # position_02 = gets.chomp
+  # p position_02
+  # board_02[position_02.to_i - 1] = player_two
+  # puts "Board 2 : #{board_02}"
+  # # # display position
+  # display_board(board_02)
 
   # puts "Player one enter position"
   # position_01 = gets.chomp
