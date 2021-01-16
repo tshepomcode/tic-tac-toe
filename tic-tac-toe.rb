@@ -26,6 +26,28 @@ def update_board(board, position, value)
   puts "board updated"
 end
 
+def is_winner(board)
+
+  selection = get_selection(board)
+  winner = []
+
+  win_1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+  win_2 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+  win_3 = [[1, 5, 9], [3, 5, 7]]
+
+  win_arr = [win_1, win_2, win_3]
+
+  win_arr.each_with_index { |item, index|
+  item.include?(selection) ? winner.push(true) : winner.push(false)
+  }
+
+  winner.include?(true) ? true : false
+end
+
+def get_selection(board)
+
+end
+
 play = "Y"
 count_play = 0
 win_count = 3
@@ -82,14 +104,15 @@ while play == "Y" do
       end
     end
 
-    p position_01
     
     # update array
     update_board(board_02, position_01, player_one)
+    
     puts "Board 2 : #{board_02}"
     # display position
     display_board(board_02)
-
+    puts "X: #{board_02.count('X')}"
+    (board_02.count('X'))> 2 ? (puts "count greater than 2!") : ()
     # Player 02
 
     board_02.any?(Integer) ? (puts "Yes there are still integers"): break
@@ -106,15 +129,15 @@ while play == "Y" do
       end
     end
 
-    p position_02
     update_board(board_02, position_02, player_two)
-    # board_02[position_02.to_i - 1] = player_two
+
     puts "Board 2 : #{board_02}"
     # # display position
     display_board(board_02)
-
+    puts "O's: #{board_02.count('O')}"
     # check win on third playthrough
-    board_02.count('X') > 2 || board_02.count('O') > 2 ? (puts "Count: #{count_play} - Check if win condition of 'X or'O") : ()
+    board_02.count('X') > 2 || board_02.count('O') > 2 ? "is winner?" : ()
+    # board_02.count('X') > 2 || board_02.count('O') > 2 ? (puts "Count: #{count_play} - Check if win condition of 'X or'O") : ()
 
   end
 
