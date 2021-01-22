@@ -1,13 +1,10 @@
 
-require 'pry'
+# require 'pry'
 
 class Board
 
-  def initialize(m,n)
-    @row = n
-    @column = m
-  end
-
+  # def display_board(board)
+  # def is_winner(board, value)
 
 
 end
@@ -26,31 +23,45 @@ def update_board(board, position, value)
   puts "board updated"
 end
 
-def is_winner(board)
+def is_winner(board, value)
 
-  selection = get_selection(board)
-  winner = []
+  value_x_o = [value, value, value]
+  puts "board = #{board} , value = #{value}, value_x_o = #{value_x_o}"
 
+  is_winner = false
   win_1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
   win_2 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
   win_3 = [[1, 5, 9], [3, 5, 7]]
 
   win_arr = [win_1, win_2, win_3]
 
-  win_arr.each_with_index { |item, index|
-  item.include?(selection) ? winner.push(true) : winner.push(false)
-  }
+  # win_arr.each_with_index { |item, index| puts "#{item}"}
+  win_arr.each_with_index do   |item, index|
+    # puts "item[#{index}] = #{item}"
+    item.each_with_index do |i, idx|
+      # puts " i[#{idx}] = #{i} & i(#{i[0]}, #{i[1]}, #{i[2]})"
+      # puts "w7_arr.values_at(#{i[0]}, #{i[1]}, #{i[2]}) == #{value_x_o}?"
+      # puts board.values_at(i[0]- 1, i[1]- 1, i[2] - 1) == value_x_o # value_x_o = ['X', 'X', 'X'] or ['O', 'O', 'O']
+      a, b, c = board.values_at(i[0]- 1, i[1]- 1, i[2] - 1)
+      check_win = [a, b, c]
+      check_win == value_x_o ?  (is_winner = true) : ()
+      # puts "Is winner? #{is_winner}"
+    end
+  end
 
-  winner.include?(true) ? true : false
+  return is_winner
+
 end
 
-def get_selection(board)
-
-end
 
 play = "Y"
 count_play = 0
 win_count = 3
+winner = false
+player_one_score = 0
+player_two_score = 0
+draw = 0
+any_integers = false
 
 while play == "Y" do
   board_02 = (1..9).to_a
@@ -63,7 +74,6 @@ while play == "Y" do
   value_x = "X"
   value_o = "O"
 
-  
   puts "Player one select either 'X' or 'O' to play with:"
   player_one = gets.chomp
   player_one.upcase!
@@ -71,8 +81,8 @@ while play == "Y" do
 
   player_one == value_x ? (player_two = value_o) : (player_two = value_x)
 
-  puts "Player one you selected #{player_one}"
-  puts "Player two you get #{player_two}"
+  puts "Player One: #{player_one}"
+  puts "Player Two: #{player_two}"
   
   puts "Select position (1-9) of knot or cross based on the grid numbers below:"
   # puts "1|2|3"
@@ -86,7 +96,7 @@ while play == "Y" do
   while board_02.any?(Integer) do
     count_play += 1
     any_integers = board_02.any?(Integer)
-    puts "Any integers? #{any_integers}"
+    # puts "Any integers? #{any_integers}"
     puts "Count play : #{count_play} "
 
     # game loop starts here
@@ -111,12 +121,26 @@ while play == "Y" do
     puts "Board 2 : #{board_02}"
     # display position
     display_board(board_02)
-    puts "X: #{board_02.count('X')}"
-    (board_02.count('X'))> 2 ? (puts "count greater than 2!") : ()
+    puts "X: #{board_02.count(player_one)}"
+    # (board_02.count(player_one))> 2 ? winner = is_winner(board_02, player_one) : ()
+    board_count_p1 = board_02.count(player_one)
+    winner = is_winner(board_02, player_one)
+    if(board_count_p1 > 2 && winner)
+      puts "Player #{player_one} wins"
+      player_one_score += 1
+      break
+    end
+
     # Player 02
-
-    board_02.any?(Integer) ? (puts "Yes there are still integers"): break
-
+    # board_02.any?(Integer) ? (puts "Yes there are still integers"): break
+    any_integers = board_02.any?(Integer)
+    if !any_integers
+      if !winner
+      draw += 1
+      break
+      else
+        puts "Yes there are still integers"
+    end
     puts "Player 02 enter position"
     position_02 = gets.chomp.to_i
     # check integer value is within range
@@ -136,16 +160,24 @@ while play == "Y" do
     display_board(board_02)
     puts "O's: #{board_02.count('O')}"
     # check win on third playthrough
-    board_02.count('X') > 2 || board_02.count('O') > 2 ? "is winner?" : ()
-    # board_02.count('X') > 2 || board_02.count('O') > 2 ? (puts "Count: #{count_play} - Check if win condition of 'X or'O") : ()
-
+    board_count_p2 = board_02.count(player_two)
+    winner = is_winner(board_02, player_two)
+    if(board_count_p2 > 2 && winner)
+      puts "Player #{player_two} wins"
+      player_two_score += 1
+      break
+    end
   end
 
+  if winner
+    puts "SCORE: Player One: #{player_one_score} | Player two: #{player_two_score} | DRAWS: #{draw}"
+  else
+    puts "SCORE: Player One: #{player_one_score} | Player two: #{player_two_score} | DRAWS: #{draw}"
+  end
   puts "Play Again?(Y/N):"
   play = gets.chomp
   play.upcase!
   play == 'Y'? (puts "resume play") : play = 'N'
-  
 end 
 
 
