@@ -25,9 +25,9 @@ end
 def is_winner(board, value)
 
   value_x_o = [value, value, value]
-  puts "board = #{board} , value = #{value}, value_x_o = #{value_x_o}"
-
+  # puts "board = #{board} , value = #{value}, value_x_o = #{value_x_o}
   is_winner = false
+
   win_1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
   win_2 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
   win_3 = [[1, 5, 9], [3, 5, 7]]
@@ -52,8 +52,9 @@ def is_winner(board, value)
 
 end
 
-def position_taken(board, select)
+def is_selected(board, select)
 end
+
 
 play = "Y"
 count_play = 0
@@ -67,7 +68,7 @@ any_integers = false
 while play == "Y" do
   board = (1..9).to_a
   board_length = board.length
-  puts "Board 2 : #{board} length : #{board_length}"
+  # puts "Board 2 : #{board} length : #{board_length}"
 
   # puts "Player 01 (X)"
   # puts "Player 02 (O)"
@@ -93,6 +94,7 @@ while play == "Y" do
   display_board(board)
   puts "Lets begin!"
   puts
+  # game loop starts here
 
   while board.any?(Integer) do
     count_play += 1
@@ -100,9 +102,8 @@ while play == "Y" do
     # puts "Any integers? #{any_integers}"
     puts "Count play : #{count_play} "
 
-    # game loop starts here
+    ### Player 01
 
-    # Player 01
     puts "Player 01 enter position"
     position_01 = gets.chomp.to_i
     # check integer value is within range
@@ -140,7 +141,8 @@ while play == "Y" do
       break
     end
 
-    # Player 02
+    ### Player 02
+    
     # board.any?(Integer) ? (puts "Yes there are still integers"): break
     any_integers = board.any?(Integer)
     if !any_integers
