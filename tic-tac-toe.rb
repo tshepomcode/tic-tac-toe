@@ -1,14 +1,13 @@
 
-# require 'pry'
 
 class Board
 
   # def display_board(board)
+  # def update_board(board, position, value)
   # def is_winner(board, value)
 
 
 end
-
 
 ###### Workbench ######
 def display_board(board)
@@ -53,6 +52,8 @@ def is_winner(board, value)
 
 end
 
+def position_taken(board, select)
+end
 
 play = "Y"
 count_play = 0
@@ -64,9 +65,9 @@ draw = 0
 any_integers = false
 
 while play == "Y" do
-  board_02 = (1..9).to_a
-  board_length = board_02.length
-  puts "Board 2 : #{board_02} length : #{board_length}"
+  board = (1..9).to_a
+  board_length = board.length
+  puts "Board 2 : #{board} length : #{board_length}"
 
   # puts "Player 01 (X)"
   # puts "Player 02 (O)"
@@ -89,13 +90,13 @@ while play == "Y" do
   # puts "4|5|6"
   # puts "7|8|9"
 
-  display_board(board_02)
+  display_board(board)
   puts "Lets begin!"
   puts
 
-  while board_02.any?(Integer) do
+  while board.any?(Integer) do
     count_play += 1
-    any_integers = board_02.any?(Integer)
+    any_integers = board.any?(Integer)
     # puts "Any integers? #{any_integers}"
     puts "Count play : #{count_play} "
 
@@ -113,18 +114,26 @@ while play == "Y" do
         position_01 = gets.chomp.to_i
       end
     end
-
+    # check if position is not already taken on the board
+    loop do
+      if (board[position_01 -1].is_a? Integer )
+        break
+      else
+        puts "Position #{position_01} is already taken. Choose another"
+        position_01 = gets.chomp.to_i
+      end
+    end
     
     # update array
-    update_board(board_02, position_01, player_one)
+    update_board(board, position_01, player_one)
     
-    puts "Board 2 : #{board_02}"
+    puts "Board 2 : #{board}"
     # display position
-    display_board(board_02)
-    puts "X: #{board_02.count(player_one)}"
-    # (board_02.count(player_one))> 2 ? winner = is_winner(board_02, player_one) : ()
-    board_count_p1 = board_02.count(player_one)
-    winner = is_winner(board_02, player_one)
+    display_board(board)
+    puts "X: #{board.count(player_one)}"
+    # (board.count(player_one))> 2 ? winner = is_winner(board, player_one) : ()
+    board_count_p1 = board.count(player_one)
+    winner = is_winner(board, player_one)
     if(board_count_p1 > 2 && winner)
       puts "Player #{player_one} wins"
       player_one_score += 1
@@ -132,13 +141,14 @@ while play == "Y" do
     end
 
     # Player 02
-    # board_02.any?(Integer) ? (puts "Yes there are still integers"): break
-    any_integers = board_02.any?(Integer)
+    # board.any?(Integer) ? (puts "Yes there are still integers"): break
+    any_integers = board.any?(Integer)
     if !any_integers
       if !winner
-      draw += 1
-      break
-      else
+        draw += 1
+        break
+      end
+    else
         puts "Yes there are still integers"
     end
     puts "Player 02 enter position"
@@ -153,15 +163,25 @@ while play == "Y" do
       end
     end
 
-    update_board(board_02, position_02, player_two)
+    # check if position is not already taken on the board
+    loop do
+      if (board[position_02 -1].is_a? Integer )
+        break
+      else
+        puts "Position #{position_02} is already taken. Choose another"
+        position_02 = gets.chomp.to_i
+      end
+    end
 
-    puts "Board 2 : #{board_02}"
+    update_board(board, position_02, player_two)
+
+    puts "Board 2 : #{board}"
     # # display position
-    display_board(board_02)
-    puts "O's: #{board_02.count('O')}"
+    display_board(board)
+    puts "O's: #{board.count('O')}"
     # check win on third playthrough
-    board_count_p2 = board_02.count(player_two)
-    winner = is_winner(board_02, player_two)
+    board_count_p2 = board.count(player_two)
+    winner = is_winner(board, player_two)
     if(board_count_p2 > 2 && winner)
       puts "Player #{player_two} wins"
       player_two_score += 1
@@ -172,6 +192,7 @@ while play == "Y" do
   if winner
     puts "SCORE: Player One: #{player_one_score} | Player two: #{player_two_score} | DRAWS: #{draw}"
   else
+    puts "Its a draw!"
     puts "SCORE: Player One: #{player_one_score} | Player two: #{player_two_score} | DRAWS: #{draw}"
   end
   puts "Play Again?(Y/N):"
@@ -179,12 +200,6 @@ while play == "Y" do
   play.upcase!
   play == 'Y'? (puts "resume play") : play = 'N'
 end 
-
-
-# setup board and players
-# board = []
-# 9.times {board.push("")} 
-# puts "Board 1: #{board}"
 
 
 
